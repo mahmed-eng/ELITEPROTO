@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact EliteSoft — Let's Create Something Extraordinary</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #f59e0b;
+      --primary-dark: #d97706;
+      --accent: #fbbf24;
+      --gold-shine: linear-gradient(90deg, transparent, rgba(251,191,36,0.5), transparent);
+      --glow: 0 0 35px rgba(251,191,36,0.35);
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #0a0a0f;
+      color: #f1f5f9;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, .logo-font {
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: -0.025em;
+    }
+
+    .logo-font {
+      font-weight: 700;
+      letter-spacing: -0.04em;
+    }
+
+    /* === NAVIGATION - Golden flash + active state === */
+    .nav-link {
+      position: relative;
+      display: inline-block;
+      padding-bottom: 6px;
+      transition: color 0.35s ease;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -8px;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent), var(--primary), var(--accent), transparent);
+      opacity: 0;
+      transform: translateX(-50%);
+      transition: width 0.55s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+      box-shadow: 0 0 15px rgba(251,191,36,0.7);
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: white;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 110%;
+      opacity: 1;
+    }
+
+    /* === GOLDEN SHINE + HOVER LIFT === */
+    .golden-shine-card {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(145deg, rgba(30,41,59,0.65), rgba(15,23,42,0.45));
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(251,191,36,0.22);
+      transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      border-radius: 1.5rem;
+    }
+
+    .golden-shine-card::before {
+      content: "";
+      position: absolute;
+      top: -70%;
+      left: -70%;
+      width: 240%;
+      height: 240%;
+      background: var(--gold-shine);
+      opacity: 0;
+      transform: translateX(-100%) rotate(30deg);
+      transition: opacity 0.7s ease, transform 1s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .golden-shine-card:hover::before {
+      opacity: 0.85;
+      transform: translateX(100%) rotate(30deg);
+    }
+
+    .golden-shine-card:hover {
+      transform: translateY(-12px) scale(1.015);
+      border-color: var(--accent);
+      box-shadow: var(--glow), 0 25px 50px -12px rgba(251,191,36,0.3);
+    }
+
+    /* Glow text effect */
+    .glow-text {
+      text-shadow: 0 0 20px rgba(251,191,36,0.5), 0 0 40px rgba(251,191,36,0.3);
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { text-shadow: 0 0 20px rgba(245,158,11,0.4); }
+      50%      { text-shadow: 0 0 50px rgba(245,158,11,0.8); }
+    }
+
+    @keyframes letterPop {
+      0%   { opacity: 0; transform: scale(0.75) translateY(10px); }
+      60%  { opacity: 1; transform: scale(1.12) translateY(-4px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(80px) scale(0.98);
+      transition: all 1.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .hero-title span {
+      display: inline-block;
+      opacity: 0;
+      animation: letterPop 1s forwards;
+      animation-delay: calc(var(--delay) * 0.09s);
+    }
+
+    .section-title.animate-glow {
+      animation: glowPulse 5s infinite ease-in-out;
+    }
+
+    .section-title {
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      width: 90px;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary));
+      bottom: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      box-shadow: 0 0 20px rgba(251,191,36,0.5);
+    }
+
+    .glass-input {
+      background: rgba(30,41,59,0.6);
+      border: 1px solid rgba(251,191,36,0.25);
+      color: white;
+      transition: all 0.3s ease;
+      padding: 1.1rem 1.4rem;
+      border-radius: 1rem;
+      width: 100%;
+      font-size: 1.05rem;
+    }
+
+    .glass-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 6px rgba(251,191,36,0.25);
+      background: rgba(30,41,59,0.8);
+    }
+
+    .glass-input::placeholder {
+      color: #94a3b8;
+    }
+
+    /* Improved responsive typography & spacing */
+    @media (max-width: 640px) {
+      h1 { font-size: 2.8rem !important; line-height: 1.1 !important; }
+      h2 { font-size: 2.5rem !important; }
+      h3 { font-size: 1.8rem !important; }
+      .hero-title br { display: none; }
+      section { padding-top: 7rem !important; padding-bottom: 7rem !important; }
+      .max-w-7xl { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-link { font-size: 1.05rem; }
+      .golden-shine-card { padding: 2.5rem 1.5rem !important; }
+    }
+
+    @media (min-width: 1024px) {
+      .glass-input { font-size: 1.125rem; padding: 1.25rem 1.5rem; }
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- NAVIGATION -->
+  <nav class="fixed top-0 inset-x-0 z-50 bg-black/80 backdrop-blur-2xl border-b border-amber-900/30">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-5 flex items-center justify-between">
+      <div class="flex items-center gap-2 cursor-pointer" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <span class="logo-font text-3xl sm:text-4xl font-extrabold tracking-tight glow-text">
+          <span class="text-amber-500">Elite</span><span class="text-white">Soft</span>
+        </span>
+      </div>
+
+      <div class="hidden md:flex items-center gap-8 lg:gap-12 text-base lg:text-lg font-medium">
+        <a href="/index.html"          class="nav-link text-slate-200 hover:text-white">Home</a>
+        <a href="/index.html#services"   class="nav-link text-slate-200 hover:text-white">Services</a>
+        <a href="/index.html#how-it-works" class="nav-link text-slate-200 hover:text-white">How it works</a>
+        <a href="/index.html#submit"     class="nav-link text-slate-200 hover:text-white">Request</a>
+        <a href="index.html"            class="nav-link text-amber-400 font-semibold active">Contact</a>
+      </div>
+
+      <button onclick="document.getElementById('contact-form').scrollIntoView({behavior:'smooth'})"
+              class="hidden md:flex items-center gap-3 bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 hover:brightness-110 text-white font-bold px-7 sm:px-8 py-4 rounded-2xl shadow-2xl shadow-amber-900/40 transition-all duration-300 text-base sm:text-lg tracking-wide">
+        <span>Get in Touch</span>
+        <i class="fa-solid fa-arrow-right text-lg"></i>
+      </button>
+
+      <button id="mobile-btn" class="md:hidden text-3xl text-amber-400">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-gradient-to-b from-slate-950 to-black border-t border-amber-900/30">
+      <div class="px-8 py-12 flex flex-col gap-8 text-xl font-medium">
+        <a href="/index.html" class="hover:text-amber-400 transition">Home</a>
+        <a href="/index.html#services" class="hover:text-amber-400 transition">Services</a>
+        <a href="/index.html#how-it-works" class="hover:text-amber-400 transition">How it works</a>
+        <a href="/index.html#submit" class="hover:text-amber-400 transition">Request</a>
+        <a href="index.html" class="text-amber-400 font-semibold">Contact</a>
+        <button onclick="document.getElementById('contact-form').scrollIntoView({behavior:'smooth'}); document.getElementById('mobile-menu').classList.add('hidden')"
+                class="mt-6 bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold py-5 rounded-2xl text-center shadow-xl shadow-amber-900/50 text-lg">
+          Get in Touch →
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="min-h-screen pt-32 sm:pt-44 pb-16 sm:pb-24 flex items-center bg-gradient-to-br from-slate-950 via-slate-900 to-black relative overflow-hidden">
+    <div class="absolute inset-0 opacity-25 pointer-events-none">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_15%_25%,rgba(251,191,36,0.15),transparent_45%)]"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_85%_75%,rgba(245,158,11,0.12),transparent_55%)]"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 w-full text-center relative z-10">
+      <div class="inline-flex items-center gap-3 bg-black/50 backdrop-blur-xl px-5 sm:px-7 py-3 rounded-full border border-amber-500/30 mb-8 sm:mb-12 animate-on-scroll">
+        <i class="fa-solid fa-handshake-simple text-xl sm:text-2xl text-amber-400"></i>
+        <span class="text-sm sm:text-base font-semibold tracking-widest text-amber-300/90 uppercase">Let's Create Together</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold leading-tight tracking-tight hero-title glow-text">
+        Let's build <span style="--delay:2">something</span><br class="hidden sm:block">
+        truly <span style="--delay:5">extraordinary</span>
+      </h1>
+
+      <p class="mt-6 sm:mt-8 text-lg sm:text-xl md:text-2xl text-slate-200 max-w-3xl lg:max-w-4xl mx-auto leading-relaxed animate-on-scroll">
+        Got an ambitious idea?<br class="hidden md:block">
+        A marketplace challenge?
+        Or just the spark of something big?
+        We're here to turn vision into high impact reality with passion and precision.
+      </p>
+
+      <div class="mt-10 sm:mt-14 flex flex-col sm:flex-row gap-5 sm:gap-6 justify-center">
+        <button onclick="document.getElementById('contact-form').scrollIntoView({behavior:'smooth'})"
+                class="px-10 sm:px-12 py-5 sm:py-7 bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 hover:brightness-110 text-white font-bold text-lg sm:text-xl rounded-2xl shadow-2xl shadow-amber-900/60 transition-all duration-300 transform hover:scale-105">
+          Start the Conversation →
+        </button>
+        <a href="mailto:hello@elitesoft.pk"
+           class="px-10 sm:px-12 py-5 sm:py-7 border-2 border-amber-500/50 hover:border-amber-400 text-amber-300 hover:text-white font-bold text-lg sm:text-xl rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 hover:shadow-glow">
+          <i class="fa-solid fa-envelope text-xl sm:text-2xl"></i>
+          hello@elitesoft.pk
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- FOUNDERS + OFFICE INFO -->
+  <section class="py-20 sm:py-28 lg:py-32 bg-black relative">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 sm:mb-20">
+        <h2 class="section-title text-4xl sm:text-5xl lg:text-6xl font-extrabold animate-on-scroll glow-text">
+          Meet the Minds Behind EliteSoft
+        </h2>
+        <p class="mt-5 sm:mt-6 text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto animate-on-scroll">
+          We live and breathe digital innovation — especially for marketplace sellers and ambitious startups.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-10 lg:gap-16">
+        <!-- Founder 1 -->
+        <div class="golden-shine-card rounded-3xl p-8 sm:p-10 lg:p-12 text-center animate-on-scroll">
+          <div class="w-44 h-44 sm:w-52 sm:h-52 lg:w-60 lg:h-60 mx-auto mb-6 lg:mb-8 rounded-full overflow-hidden border-8 border-amber-500/20 shadow-2xl shadow-amber-900/40">
+            <img src="team/442439610_418409017645316_4685299187844820662_n.jpg" alt="Mohd. Ahmed Hashmi" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-3xl sm:text-4xl font-bold mb-2 lg:mb-3 glow-text">Mohd. Ahmed Hashmi</h3>
+          <p class="text-xl sm:text-2xl text-amber-400 font-semibold mb-5 lg:mb-6">Co-Founder & Lead Developer</p>
+          <div class="flex justify-center gap-6 sm:gap-8 text-2xl sm:text-3xl mb-6 lg:mb-8">
+            <a href="#" class="hover:text-amber-300 transition"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="hover:text-amber-300 transition"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="hover:text-amber-300 transition"><i class="fab fa-github"></i></a>
+          </div>
+          <div class="text-base sm:text-lg text-slate-200 space-y-2 sm:space-y-3">
+            <p><i class="fa-solid fa-phone mr-3 text-amber-400"></i> +92 321 123 4567</p>
+            <p><i class="fa-solid fa-envelope mr-3 text-amber-400"></i> <a href="mailto:hashmi@elitesoft.pk" class="hover:text-amber-300">hashmi@elitesoft.pk</a></p>
+          </div>
+        </div>
+
+        <!-- Founder 2 -->
+        <div class="golden-shine-card rounded-3xl p-8 sm:p-10 lg:p-12 text-center animate-on-scroll" style="animation-delay: 0.3s;">
+          <div class="w-44 h-44 sm:w-52 sm:h-52 lg:w-60 lg:h-60 mx-auto mb-6 lg:mb-8 rounded-full overflow-hidden border-8 border-amber-500/20 shadow-2xl shadow-amber-900/40">
+            <img src="Team/t.png" alt="Co-Founder" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-3xl sm:text-4xl font-bold mb-2 lg:mb-3 glow-text">Mohd. Taha Sadiq</h3>
+          <p class="text-xl sm:text-2xl text-amber-400 font-semibold mb-5 lg:mb-6">Co-Founder & Growth Strategist</p>
+          <div class="flex justify-center gap-6 sm:gap-8 text-2xl sm:text-3xl mb-6 lg:mb-8">
+            <a href="#" class="hover:text-amber-300 transition"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="hover:text-amber-300 transition"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="hover:text-amber-300 transition"><i class="fab fa-twitter"></i></a>
+          </div>
+          <div class="text-base sm:text-lg text-slate-200 space-y-2 sm:space-y-3">
+            <p><i class="fa-solid fa-phone mr-3 text-amber-400"></i> +92 333 987 6543</p>
+            <p><i class="fa-solid fa-envelope mr-3 text-amber-400"></i> <a href="mailto:partner@elitesoft.pk" class="hover:text-amber-300">partner@elitesoft.pk</a></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Contact Cards -->
+      <div class="mt-16 sm:mt-20 grid sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+        <div class="golden-shine-card rounded-3xl p-8 sm:p-10 text-center animate-on-scroll">
+          <div class="text-5xl sm:text-6xl text-amber-400 mb-6"><i class="fa-solid fa-location-dot"></i></div>
+          <h4 class="text-xl sm:text-2xl font-bold mb-4">Visit Us</h4>
+          <p class="text-slate-300 text-base sm:text-lg">Office #304, Tech Tower,<br>Clifton Block 9, Karachi, Pakistan</p>
+        </div>
+
+        <div class="golden-shine-card rounded-3xl p-8 sm:p-10 text-center animate-on-scroll" style="animation-delay:0.2s">
+          <div class="text-5xl sm:text-6xl text-amber-400 mb-6"><i class="fa-solid fa-clock"></i></div>
+          <h4 class="text-xl sm:text-2xl font-bold mb-4">Working Hours</h4>
+          <p class="text-slate-300 text-base sm:text-lg">Monday – Saturday<br>10:00 AM – 7:00 PM PKT</p>
+        </div>
+
+        <div class="golden-shine-card rounded-3xl p-8 sm:p-10 text-center animate-on-scroll" style="animation-delay:0.4s">
+          <div class="text-5xl sm:text-6xl text-amber-400 mb-6"><i class="fa-solid fa-headset"></i></div>
+          <h4 class="text-xl sm:text-2xl font-bold mb-4">Instant Support</h4>
+          <p class="text-slate-300 text-base sm:text-lg">Call or Email<br>+92 336 224 5627</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT FORM + FINAL CTA -->
+  <section id="contact-form" class="py-20 sm:py-28 lg:py-32 bg-gradient-to-b from-black via-slate-950 to-black relative">
+    <div class="max-w-4xl lg:max-w-5xl mx-auto px-5 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 sm:mb-16">
+        <h2 class="section-title text-4xl sm:text-5xl lg:text-6xl font-extrabold animate-on-scroll glow-text">
+          Let's Start Building
+        </h2>
+        <p class="mt-5 sm:mt-6 text-lg sm:text-xl lg:text-2xl text-slate-200 max-w-3xl lg:max-w-4xl mx-auto animate-on-scroll">
+          Drop your message below — we usually respond within hours, not days.
+        </p>
+      </div>
+
+      <form action="https://api.web3forms.com/submit" method="POST" class="golden-shine-card rounded-3xl p-8 sm:p-10 lg:p-14 animate-on-scroll">
+        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY_HERE">
+        <input type="hidden" name="subject" value="EliteSoft Contact — New Business Inquiry">
+
+        <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
+          <div>
+            <label class="block text-base sm:text-lg font-semibold mb-3 text-slate-200">Full Name *</label>
+            <input type="text" name="name" required class="glass-input text-base sm:text-lg" placeholder="Your name">
+          </div>
+          <div>
+            <label class="block text-base sm:text-lg font-semibold mb-3 text-slate-200">Email Address *</label>
+            <input type="email" name="email" required class="glass-input text-base sm:text-lg" placeholder="you@company.com">
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-base sm:text-lg font-semibold mb-3 text-slate-200">Phone</label>
+            <input type="tel" name="phone" class="glass-input text-base sm:text-lg" placeholder="+92 336 224 5627">
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-base sm:text-lg font-semibold mb-3 text-slate-200">Company / Store Name</label>
+            <input type="text" name="company" class="glass-input text-base sm:text-lg" placeholder="Your brand or marketplace store">
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-base sm:text-lg font-semibold mb-3 text-slate-200">Your Message / Project Idea *</label>
+            <textarea name="message" required rows="6" class="glass-input text-base sm:text-lg resize-y min-h-[160px] lg:min-h-[180px]" placeholder="Tell us what you're dreaming of — marketplace automation, custom app, API integration, scaling challenge, budget range, timeline..."></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="mt-10 lg:mt-12 w-full bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 hover:brightness-110 text-white font-bold text-xl sm:text-2xl py-6 lg:py-7 rounded-2xl shadow-2xl shadow-amber-900/60 transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center gap-4">
+          Send Your Message
+          <i class="fa-solid fa-rocket text-xl sm:text-2xl"></i>
+        </button>
+      </form>
+
+      <div class="text-center mt-12 sm:mt-16 text-slate-300 text-base sm:text-lg">
+        <p class="mb-4">Prefer classic email or want to skip the form?</p>
+        <a href="mailto:hello@elitesoft.pk" class="inline-flex items-center gap-3 text-xl sm:text-2xl font-semibold text-amber-400 hover:text-amber-300 transition">
+          <i class="fa-solid fa-envelope-open-text text-2xl sm:text-3xl"></i>
+          hello@elitesoft.pk
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-btn').onclick = () => {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    };
+
+    // Scroll reveal animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

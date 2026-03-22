@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Team — EliteSoft</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #f59e0b;
+      --primary-dark: #d97706;
+      --accent: #fbbf24;
+      --gold-shine: linear-gradient(90deg, transparent, rgba(251,191,36,0.5), transparent);
+      --glow: 0 0 35px rgba(251,191,36,0.35);
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #0a0a0f;
+      color: #f1f5f9;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, .logo-font {
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: -0.025em;
+    }
+
+    .logo-font {
+      font-weight: 700;
+      letter-spacing: -0.04em;
+    }
+
+    /* Golden flash underline on hover */
+    .nav-link {
+      position: relative;
+      display: inline-block;
+      padding-bottom: 6px;
+      transition: color 0.35s ease;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -8px;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent), var(--primary), var(--accent), transparent);
+      opacity: 0;
+      transform: translateX(-50%);
+      transition: width 0.55s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+      box-shadow: 0 0 15px rgba(251,191,36,0.7);
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: white;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 110%;
+      opacity: 1;
+    }
+
+    /* Golden shine hover effect for team cards */
+    .team-card {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(145deg, rgba(30,41,59,0.65), rgba(15,23,42,0.45));
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(251,191,36,0.22);
+      transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      border-radius: 1.5rem;
+    }
+
+    .team-card::before {
+      content: "";
+      position: absolute;
+      top: -70%;
+      left: -70%;
+      width: 240%;
+      height: 240%;
+      background: var(--gold-shine);
+      opacity: 0;
+      transform: translateX(-100%) rotate(30deg);
+      transition: opacity 0.7s ease, transform 1s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .team-card:hover::before {
+      opacity: 0.85;
+      transform: translateX(100%) rotate(30deg);
+    }
+
+    .team-card:hover {
+      transform: translateY(-16px) scale(1.03);
+      border-color: var(--accent);
+      box-shadow: var(--glow), 0 30px 60px -15px rgba(251,191,36,0.35);
+    }
+
+    /* Glow text effect */
+    .glow-text {
+      text-shadow: 0 0 20px rgba(251,191,36,0.5), 0 0 40px rgba(251,191,36,0.3);
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { text-shadow: 0 0 20px rgba(245,158,11,0.4); }
+      50%      { text-shadow: 0 0 50px rgba(245,158,11,0.8); }
+    }
+
+    @keyframes letterPop {
+      0%   { opacity: 0; transform: scale(0.75) translateY(10px); }
+      60%  { opacity: 1; transform: scale(1.12) translateY(-4px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(80px) scale(0.95);
+      transition: all 1.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .section-title {
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      width: 100px;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary));
+      bottom: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      box-shadow: 0 0 25px rgba(251,191,36,0.5);
+    }
+
+    .section-title.animate-glow {
+      animation: glowPulse 5s infinite ease-in-out;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
+      h1 { font-size: 2.8rem !important; line-height: 1.1 !important; }
+      h2 { font-size: 2.5rem !important; }
+      section { padding-top: 7rem !important; padding-bottom: 7rem !important; }
+      .max-w-7xl { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+    }
+
+    @media (max-width: 768px) {
+      .team-card { padding: 2rem 1.5rem !important; }
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- NAVIGATION -->
+  <nav class="fixed top-0 inset-x-0 z-50 bg-black/80 backdrop-blur-2xl border-b border-amber-900/30">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-5 flex items-center justify-between">
+      <div class="flex items-center gap-2 cursor-pointer" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <span class="logo-font text-3xl sm:text-4xl font-extrabold tracking-tight glow-text">
+          <span class="text-amber-500">Elite</span><span class="text-white">Soft</span>
+        </span>
+      </div>
+
+      <div class="hidden md:flex items-center gap-8 lg:gap-12 text-base lg:text-lg font-medium">
+        <a href="/index.html" class="nav-link text-slate-200 hover:text-white">Home</a>
+        <a href="index.html#services" class="nav-link text-slate-200 hover:text-white">Services</a>
+        <a href="index.html#how-it-works" class="nav-link text-slate-200 hover:text-white">How it works</a>
+        <a href="index.html#submit" class="nav-link text-slate-200 hover:text-white">Request</a>
+        <a href="/Contact/index.html" class="nav-link text-slate-200 hover:text-white">Contact</a>
+      </div>
+
+      <button onclick="window.scrollTo({top:0,behavior:'smooth'})"
+              class="hidden md:flex items-center gap-3 bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 hover:brightness-110 text-white font-bold px-7 sm:px-8 py-4 rounded-2xl shadow-2xl shadow-amber-900/40 transition-all duration-300 text-base sm:text-lg tracking-wide">
+        <span>Back to Home</span>
+        <i class="fa-solid fa-arrow-left text-lg"></i>
+      </button>
+
+      <button id="mobile-btn" class="md:hidden text-3xl text-amber-400">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-gradient-to-b from-slate-950 to-black border-t border-amber-900/30">
+      <div class="px-8 py-12 flex flex-col gap-8 text-xl font-medium">
+        <a href="index.html" class="hover:text-amber-400 transition">Home</a>
+        <a href="index.html#services" class="hover:text-amber-400 transition">Services</a>
+        <a href="index.html#how-it-works" class="hover:text-amber-400 transition">How it works</a>
+        <a href="index.html#submit" class="hover:text-amber-400 transition">Request</a>
+        <a href="/Contact/index.html" class="hover:text-amber-400 transition">Contact</a>
+        <button onclick="window.scrollTo({top:0,behavior:'smooth'}); document.getElementById('mobile-menu').classList.add('hidden')"
+                class="mt-6 bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold py-5 rounded-2xl text-center shadow-xl shadow-amber-900/50 text-lg">
+          Back to Home →
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- TEAM SECTION -->
+  <section class="min-h-screen pt-32 sm:pt-44 pb-20 bg-gradient-to-b from-black via-slate-950 to-black">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 sm:mb-20">
+        <h2 class="section-title text-5xl sm:text-6xl lg:text-7xl font-extrabold animate-on-scroll glow-text">
+          Our Team
+        </h2>
+        <p class="mt-6 text-xl sm:text-2xl text-slate-300 max-w-3xl mx-auto animate-on-scroll">
+          The passionate minds driving innovation, code, strategy, and success at EliteSoft.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 lg:gap-10">
+        <!-- Member 1 -->
+        <div class="team-card p-8 text-center animate-on-scroll">
+          <div class="w-44 h-44 sm:w-52 sm:h-52 mx-auto mb-6 rounded-full overflow-hidden border-8 border-amber-500/20 shadow-2xl shadow-amber-900/40">
+            <img src="Team/442439610_418409017645316_4685299187844820662_n.jpg" alt="Mohd. Ahmed Hashmi" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-bold mb-2 glow-text">Mohd. Ahmed Hashmi</h3>
+          <p class="text-xl text-amber-400 font-semibold">Founder & Lead Developer</p>
+        </div>
+
+        <!-- Member 2 -->
+        <div class="team-card p-8 text-center animate-on-scroll" style="animation-delay: 0.1s;">
+          <div class="w-44 h-44 sm:w-52 sm:h-52 mx-auto mb-6 rounded-full overflow-hidden border-8 border-amber-500/20 shadow-2xl shadow-amber-900/40">
+            <img src="Team/default-avatar-profile-icon-grey-600nw-767771863.jpg" alt="Tooba Taqi" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-bold mb-2 glow-text">Tooba Taqi</h3>
+          <p class="text-xl text-amber-400 font-semibold">Full Stack Developer</p>
+        </div>
+
+        <!-- Member 3 - Bilal Ahmed with your local image -->
+        <div class="team-card p-8 text-center animate-on-scroll" style="animation-delay: 0.2s;">
+          <div class="w-44 h-44 sm:w-52 sm:h-52 mx-auto mb-6 rounded-full overflow-hidden border-8 border-amber-500/20 shadow-2xl shadow-amber-900/40">
+            <!-- Using your local image (place n.png in the same folder as this HTML file) -->
+            <img src="Team/n.png" alt="Bilal Ahmed" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-bold mb-2 glow-text">Noman Baig</h3>
+          <p class="text-xl text-amber-400 font-semibold">Graphics Designer</p>
+        </div>
+
+        <!-- Member 4 -->
+        <div class="team-card p-8 text-center animate-on-scroll" style="animation-delay: 0.3s;">
+          <div class="w-44 h-44 sm:w-52 sm:h-52 mx-auto mb-6 rounded-full overflow-hidden border-8 border-amber-500/20 shadow-2xl shadow-amber-900/40">
+            <img src="Team/default-avatar-profile-icon-grey-600nw-767771863.jpg " alt="Rabia Ghanznavi" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-bold mb-2 glow-text">Rabia Ghanznavi</h3>
+          <p class="text-xl text-amber-400 font-semibold">Frontend Developer</p>
+        </div>
+
+        <!-- Member 5 -->
+        <div class="team-card p-8 text-center animate-on-scroll" style="animation-delay: 0.4s;">
+          <div class="w-44 h-44 sm:w-52 sm:h-52 mx-auto mb-6 rounded-full overflow-hidden border-8 border-amber-500/20 shadow-2xl shadow-amber-900/40">
+            <img src="Team/t.png" alt="Taha Sadiq" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-bold mb-2 glow-text">Mohd. Taha Sadiq</h3>
+          <p class="text-xl text-amber-400 font-semibold">Amazon VA | Ebook Publisher | Ecommerce Specialist | Amazon | Ebay | Etsy | Dropshipping | Wholesale</p>
+        </div>
+
+        <!-- Member 6 -->
+        <div class="team-card p-8 text-center animate-on-scroll" style="animation-delay: 0.5s;">
+          <div class="w-44 h-44 sm:w-52 sm:h-52 mx-auto mb-6 rounded-full overflow-hidden border-8 border-amber-500/20 shadow-2xl shadow-amber-900/40">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=800&auto=format&fit=crop" alt="Fatima Noor" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-bold mb-2 glow-text">Fatima Noor</h3>
+          <p class="text-xl text-amber-400 font-semibold">Project Manager</p>
+        </div>
+
+        <!-- Member 7 -->
+        <div class="team-card p-8 text-center animate-on-scroll" style="animation-delay: 0.6s;">
+          <div class="w-44 h-44 sm:w-52 sm:h-52 mx-auto mb-6 rounded-full overflow-hidden border-8 border-amber-500/20 shadow-2xl shadow-amber-900/40">
+            <img src="Team/h.jpg" alt="Humayun Khan" class="w-full h-full object-cover">
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-bold mb-2 glow-text">Humayu Wajid Khan</h3>
+          <p class="text-xl text-amber-400 font-semibold">SEO Analyst</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-btn').onclick = () => {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    };
+
+    // Scroll reveal animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
